@@ -21,6 +21,7 @@
     </div>
     <script type="module">
     import { parseTsv, parse3dg, addChunkToScene, addModelToScene, initScene, display } from './src/main.ts';
+    import { testChunkData } from './src/_delete_this_data.ts';
 
       console.log("hello!");
 
@@ -36,29 +37,41 @@
           const url2 = "https://dl.dropbox.com/scl/fi/bpd0t21ypyo0nyv3svi14/dros.9.txt?rlkey=i24mzd3hb1zruq7w8eshel9kq&dl=0";          
           const url3 = "https://dl.dropbox.com/scl/fi/ha34hk0jdg8cj5i7va2lb/dros.26.txt?rlkey=duyjahmvxf64splqvpzndlup3&dl=0";
 
-          const fileContent = await fetchTsv(url);
-          const fileContent2 = await fetchTsv(url2);
-          const fileContent3 = await fetchTsv(url3);
-          const testChunk = parseTsv(fileContent, { center: true, normalize: true }); //~ parseTsv(data, center = true) ? 
-          const testChunk2 = parseTsv(fileContent2, { center: true, normalize: true }); //~ parseTsv(data, center = true) ? 
-          const testChunk3 = parseTsv(fileContent3, { center: true, normalize: true }); //~ parseTsv(data, center = true) ? 
-          console.log(testChunk);
+          // const fileContent = await fetchTsv(url);
+          // const fileContent2 = await fetchTsv(url2);
+          // const fileContent3 = await fetchTsv(url3);
+          // const testChunk = parseTsv(fileContent, { center: true, normalize: true }); //~ parseTsv(data, center = true) ? 
+          // const testChunk2 = parseTsv(fileContent2, { center: true, normalize: true }); //~ parseTsv(data, center = true) ? 
+          // const testChunk3 = parseTsv(fileContent3, { center: true, normalize: true }); //~ parseTsv(data, center = true) ? 
+          // console.log(testChunk);
 
-          const urlTan2018 = "https://dl.dropboxusercontent.com/scl/fi/lzv3ba5paum6srhte4z2t/GSM3271406_pbmc_18.impute.3dg.txt?rlkey=dc7k1gg5ghv2v7dsl0gg1uoo9&dl=0";
-          const fileTan2018 = await fetchTsv(urlTan2018);
-          const tab2018Model = parse3dg(fileTan2018 , { center: true, normalize: true }); //~ parseTsv(data, center = true) ? 
+          // const urlTan2018 = "https://dl.dropboxusercontent.com/scl/fi/lzv3ba5paum6srhte4z2t/GSM3271406_pbmc_18.impute.3dg.txt?rlkey=dc7k1gg5ghv2v7dsl0gg1uoo9&dl=0";
+          // const fileTan2018 = await fetchTsv(urlTan2018);
+          // const tab2018Model = parse3dg(fileTan2018 , { center: true, normalize: true }); //~ parseTsv(data, center = true) ? 
+
+          // const localTestFile = "file://Users/davidkouril/Library/CloudStorage/Dropbox/HMS/data/sBIF/output/dros.3.txt";
+          // const localTestFileContent = await fetchTsv(localTestFile);
+          const localTestFile = testChunkData;
+          const localTestChunk = parseTsv(localTestFile , { center: true, normalize: true }); //~ parseTsv(data, center = true) ? 
           
           //~ API testing
           //~ this config specifies how the 3D model will look
           const viewConfig = ({ 
             binSizeScale: 0.01, 
             coloring: "constant",
+            makeLinks: false,
           });
           
           //~ create a scene
           let chromatinScene = initScene();
-          chromatinScene = addChunkToScene(chromatinScene, testChunk, viewConfig);
-          chromatinScene = addChunkToScene(chromatinScene, testChunk2, viewConfig);
+          // chromatinScene = addChunkToScene(chromatinScene, localTestChunk, viewConfig);
+          // chromatinScene = addChunkToScene(chromatinScene, testChunk, viewConfig);
+          // chromatinScene = addChunkToScene(chromatinScene, testChunk2, viewConfig);
+
+          for (let i = 0; i < 50; i++) {
+            console.log("adding chunk nr. " + i);
+            chromatinScene = addChunkToScene(chromatinScene, localTestChunk, viewConfig);
+          }
           
           const [renderer, canvas] = display(chromatinScene, { alwaysRedraw: false});
 
