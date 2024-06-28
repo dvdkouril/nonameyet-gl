@@ -103,7 +103,7 @@ export type Selection = {
   label: string;
 };
 
-type ChromatinSceneConfig = {
+export type ChromatinSceneConfig = {
   layout: "center" | "grid";
 };
 

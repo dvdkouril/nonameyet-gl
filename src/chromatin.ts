@@ -4,6 +4,7 @@ import type {
   ChromatinChunk,
   ChromatinModel,
   ChromatinScene,
+  ChromatinSceneConfig,
   DisplayableChunk,
   DisplayableModel,
   ViewConfig,
@@ -100,7 +101,7 @@ export function display(
   const renderer = new ChromatinBasicRenderer({
     alwaysRedraw: options.alwaysRedraw,
   });
-  buildStructures(scene.structures, renderer);
+  buildStructures(scene.structures, renderer, scene.config);
   renderer.startDrawing();
   const canvas = renderer.getCanvasElement();
   return [renderer, canvas];
@@ -109,6 +110,7 @@ export function display(
 function buildStructures(
   structures: (DisplayableChunk | DisplayableModel)[],
   renderer: ChromatinBasicRenderer,
+  sceneConfig: ChromatinSceneConfig,
 ) {
   for (const s of structures) {
     switch (s.kind) {
@@ -120,6 +122,7 @@ function buildStructures(
         break;
     }
   }
+  renderer.setConfig(sceneConfig);
 }
 
 function buildDisplayableModel(
